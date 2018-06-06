@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
+use App\UserConversation;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class UserConversationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class MessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\message  $message
+     * @param  \App\UserConversation  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show(UserConversation $userConversation)
     {
         //
     }
@@ -52,10 +52,10 @@ class MessageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\message  $message
+     * @param  \App\UserConversation  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Message $message)
+    public function edit(UserConversation $userConversation)
     {
         //
     }
@@ -64,10 +64,10 @@ class MessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\message  $message
+     * @param  \App\UserConversation  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, UserConversation $userConversation)
     {
         //
     }
@@ -75,10 +75,10 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\message  $message
+     * @param  \App\UserConversation  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy(UserConversation $userConversation)
     {
         //
     }

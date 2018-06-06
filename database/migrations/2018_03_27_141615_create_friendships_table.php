@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessagesTable extends Migration
+class CreateFriendshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,19 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('friendships', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->text('message');
+            $table->boolean("is_validated")->default(false);
 
-            $table->integer('author_id')->unsigned();
-            $table->foreign('author_id')
+            $table->integer('sender_id')->unsigned();
+            $table->foreign('sender_id')
                 ->references('id')->on('users');
 
-            $table->integer('conversation_id')->unsigned();
-            $table->foreign('conversation_id')
-                ->references('id')->on('conversations');
+            $table->integer('reciever_id')->unsigned();
+            $table->foreign('reciever_id')
+                ->references('id')->on('users');
+
         });
     }
 
@@ -35,6 +36,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('friendships');
     }
 }

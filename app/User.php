@@ -30,6 +30,18 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasMany('App\message', 'sender');
+        return $this->hasMany('App\Message', 'sender');
+    }
+
+    public function conversations()
+    {
+        return $this->belongsToMany('App\Conversation', 'user_conversations',
+            'user_id', 'conversation_id');
+    }
+
+    public function friendships()
+    {
+        return $this->belongsToMany('App\Friendship', 'friendships',
+            'user_id', 'conversation_id');
     }
 }
