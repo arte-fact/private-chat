@@ -17,6 +17,8 @@ class CreateUserConversationsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->dateTime('read_at')->nullable();
+
             $table->integer('conversation_id')->unsigned();
             $table->foreign('conversation_id')
                 ->references('id')->on('conversations');

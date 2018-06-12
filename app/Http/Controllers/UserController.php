@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,9 +24,24 @@ class UserController extends Controller
         return $response;
     }
 
-    public function user(Request $request)
+    public function getUserConversations(Request $request)
     {
-        return User::where('id', $request->user()->id)->with(['messages'])->first();
+        /** @var User $user */
+        $user = $request->user();
+
+        $userConversations = $user->userConversations()
+            ->with('conversation')
+            ->get();
+
+        $conversations = [];
+        $i = 0;
+
+        foreach ($userConversations as $conversation) {
+            $conversations[$i] = $conversation->conversation;
+            $i++;
+        }
+
+        return Response::create($conversations);
     }
 
     public function register(Request $request)

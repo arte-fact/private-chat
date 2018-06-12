@@ -10,10 +10,12 @@ class UserConversation extends Model
         'user_id',
         'conversation_id',
     ];
+
     public function user() {
-        return $this->hasOne('App\User', 'id','user_id');
+        return $this->belongsTo(User::class);
     }
+
     public function conversation() {
-        return $this->hasOne('App\Conversation', 'id','conversation_id');
+        return $this->belongsTo(Conversation::class)->with('messages');
     }
 }

@@ -17,6 +17,8 @@ Route::post('register', 'UserController@register')->name('register');
 
 Route::group(['middleware' => ['auth:api']], function()
 {
+    Route::get('conversations', 'UserController@getUserConversations');
+
     Route::resources(
         [
             'messages' => 'MessageController',

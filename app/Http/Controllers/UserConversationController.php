@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\UserConversation;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,8 @@ class UserConversationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function get(Request $request)
     {
-        //
     }
 
     /**

@@ -12,10 +12,12 @@ class Message extends Model
         'conversation_id',
     ];
 
-    public function recipient() {
-        return $this->hasOne('App\User', 'id','author_id');
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class, 'id', 'conversation_id');
     }
+
     public function sender() {
-        return $this->hasOne('App\User', 'id','conversation_id');
+        return $this->belongsTo('App\User', 'id','author_id');
     }
 }
