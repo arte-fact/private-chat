@@ -16,10 +16,10 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $conversations = $request->user()->userConversations()->get();
+        $userConversations = $request->user()->userConversations()->get();
         $messages = [];
 
-        foreach ($conversations as $conversation)
+        foreach ($userConversations as $conversation)
         {
             $id = $conversation->conversation->id;
             $conversationMessages = Message::where('conversation_id', $id)->get()->toArray();
@@ -46,7 +46,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Response::create($request->toArray());
     }
 
     /**
