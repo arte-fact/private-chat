@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use function MongoDB\BSON\toJSON;
 
 class MessageController extends Controller
 {
@@ -14,6 +16,16 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
+        $conversations = $request->user()->userConversations()->get();
+        $messages = [];
+
+        foreach ($conversations as $conversation)
+        {
+            $id = $conversation->conversation->id;
+            $conversationMessages = Message::where('conversation_id', $id)->get()->toArray();
+            $messages = array_merge($messages, $conversationMessages);
+        }
+        return Response::create($messages);
     }
 
     /**
