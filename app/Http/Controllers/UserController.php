@@ -24,6 +24,11 @@ class UserController extends Controller
         return $response;
     }
 
+    public function me(Request $request)
+    {
+        return Response::create($request->user());
+    }
+
     public function getUserConversations(Request $request)
     {
         /** @var User $user */

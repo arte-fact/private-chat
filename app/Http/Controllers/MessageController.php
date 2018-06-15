@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageCreatedEvent;
 use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use function MongoDB\BSON\toJSON;
+use Illuminate\Support\Facades\Log;
 
 class MessageController extends Controller
 {
@@ -19,12 +20,12 @@ class MessageController extends Controller
         $userConversations = $request->user()->userConversations()->get();
         $messages = [];
 
-        foreach ($userConversations as $conversation)
-        {
+        foreach ($userConversations as $conversation) {
             $id = $conversation->conversation->id;
             $conversationMessages = Message::where('conversation_id', $id)->get()->toArray();
             $messages = array_merge($messages, $conversationMessages);
         }
+
         return Response::create($messages);
     }
 
@@ -41,18 +42,30 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        return Response::create($request->toArray());
+        $message = Message::create(
+            array_merge(
+                $request->all(),
+                ['author_id' => 1]
+            )
+        );
+
+        $event = new MessageCreatedEvent($message);
+        broadcast($event);
+
+        Log::debug(Response::create(['message' => $message]));
+
+        return Response::create(['message' => $message]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\message  $message
+     * @param  \App\message $message
      * @return \Illuminate\Http\Response
      */
     public function show(Message $message)
@@ -63,7 +76,7 @@ class MessageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\message  $message
+     * @param  \App\message $message
      * @return \Illuminate\Http\Response
      */
     public function edit(Message $message)
@@ -74,8 +87,8 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\message  $message
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\message $message
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Message $message)
@@ -86,7 +99,7 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\message  $message
+     * @param  \App\message $message
      * @return \Illuminate\Http\Response
      */
     public function destroy(Message $message)

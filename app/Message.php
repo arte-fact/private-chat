@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     protected $fillable = [
-        'message',
+        'text',
         'author_id',
         'conversation_id',
     ];
@@ -19,5 +19,10 @@ class Message extends Model
 
     public function sender() {
         return $this->belongsTo('App\User', 'id','author_id');
+    }
+
+    public function getConversationId()
+    {
+        return (string) $this->conversationId;
     }
 }
