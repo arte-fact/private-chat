@@ -14,7 +14,15 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $response = $this->postJson('api/user-number', [
+            "username" => "hughomzngpùzzegzg@hgzuhu.gez",
+            "password" => "secret",
+            "password_confirm" => "secret",
+            "client_id" => "4",
+            "client_secret" => "6KdGPLinH0kVzfPofh15iYSSFiUyPsw793pF0gSK",
+            "scope" => "*",
+            "grant_type" => "password"
+        ])->dump();
 
         $response->assertStatus(200);
     }

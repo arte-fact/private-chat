@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 */
 Route::post('register', 'UserController@register')->name('register');
 
+Route::post('user-number', 'UserController@getUserNumberOrRegister');
+
 Route::group(['middleware' => ['auth:api']], function()
 {
     Route::get('conversations', 'UserController@getUserConversations');

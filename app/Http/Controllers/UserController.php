@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Conversation;
-use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Client;
 
 class UserController extends Controller
@@ -21,12 +20,35 @@ class UserController extends Controller
     {
         $users = User::all();
         $response = Response::create($users);
+        Log::debug($response);
         return $response;
     }
 
     public function me(Request $request)
     {
         return Response::create($request->user());
+    }
+
+    public function getUserNumberOrRegister (Request $request)
+    {
+        $user = User::where('email', $request->get("username"))->get();
+
+        if (empty($user[0]))
+        {
+            $password = bcrypt("secret");
+            $number = (string) mt_rand(123456, 999999);
+            $user = User::create([
+                'name' => $number,
+                'email' => $request->get("username"),
+                'password' => $password,
+                'password_confirm' => $password,
+            ]);
+
+            Log::debug(Response::create(["user" => $user]));
+            return Response::create(["user" => $user]);
+        }
+        Log::debug(Response::create(["user" => $user[0]]));
+        return Response::create(["user" => $user[0]]);
     }
 
     public function getUserConversations(Request $request)
@@ -46,7 +68,10 @@ class UserController extends Controller
             $i++;
         }
 
-        return Response::create($conversations);
+        $response = Response::create($conversations);
+        Log::debug($response);
+
+        return $response;
     }
 
     public function register(Request $request)
