@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserConversationsTable extends Migration
+class CreateConversationUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserConversationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_conversations', function (Blueprint $table) {
+        Schema::create('conversation_user', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 

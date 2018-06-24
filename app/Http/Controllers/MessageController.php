@@ -17,11 +17,12 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $userConversations = $request->user()->userConversations()->get();
+        Log::debug("Message Controller");
+        $userConversations = $request->user()->conversations()->get();
         $messages = [];
 
         foreach ($userConversations as $conversation) {
-            $id = $conversation->conversation->id;
+            $id = $conversation->id;
             $conversationMessages = Message::where('conversation_id', $id)->get()->toArray();
             $messages = array_merge($messages, $conversationMessages);
         }
@@ -50,7 +51,7 @@ class MessageController extends Controller
         $message = Message::create(
             array_merge(
                 $request->all(),
-                ['author_id' => 1]
+                ['author_id' => $request->user()->id]
             )
         );
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\UserConversation;
+use App\ConversationUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserConversationController extends Controller
 {
@@ -13,8 +14,9 @@ class UserConversationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function get(Request $request)
+    public function index(Request $request)
     {
+        Log::debug("coucou!");
     }
 
     /**
@@ -41,10 +43,10 @@ class UserConversationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\UserConversation  $userConversation
+     * @param  \App\ConversationUser  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function show(UserConversation $userConversation)
+    public function show(ConversationUser $userConversation)
     {
         //
     }
@@ -52,10 +54,10 @@ class UserConversationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UserConversation  $userConversation
+     * @param  \App\ConversationUser  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserConversation $userConversation)
+    public function edit(ConversationUser $userConversation)
     {
         //
     }
@@ -64,10 +66,10 @@ class UserConversationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserConversation  $userConversation
+     * @param  \App\ConversationUser  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserConversation $userConversation)
+    public function update(Request $request, ConversationUser $userConversation)
     {
         //
     }
@@ -75,10 +77,10 @@ class UserConversationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\UserConversation  $userConversation
+     * @param  \App\ConversationUser  $userConversation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserConversation $userConversation)
+    public function destroy(ConversationUser $userConversation)
     {
         //
     }

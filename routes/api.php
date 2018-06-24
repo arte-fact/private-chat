@@ -19,11 +19,13 @@ Route::post('user-number', 'UserController@getUserNumberOrRegister');
 Route::group(['middleware' => ['auth:api']], function()
 {
     Route::get('conversations', 'UserController@getUserConversations');
+    Route::post('conversations', 'ConversationController@store');
     Route::get('me', 'UserController@me');
 
     Route::resources(
         [
             'messages' => 'MessageController',
+            'conversation' => 'ConversationController',
             'users' => 'UserController',
         ]
     );

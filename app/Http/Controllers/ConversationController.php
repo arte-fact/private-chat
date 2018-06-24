@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class ConversationController extends Controller
 {
@@ -12,19 +15,17 @@ class ConversationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -35,7 +36,19 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::debug("Conversation Controller");
+        $userId = $request->user()->id;
+        $friendId = $request->toArray()[0];
+
+        /** @var Conversation $conversation */
+        $conversation = Conversation::create([
+            'name' => "conversation",
+        ]);
+        $conversation->users()->attach($userId);
+        $conversation->users()->attach($friendId);
+        $response = Response::create($conversation);
+        Log::debug($conversation);
+        return $response;
     }
 
     /**

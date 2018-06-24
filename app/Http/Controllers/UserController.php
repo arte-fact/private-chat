@@ -53,23 +53,12 @@ class UserController extends Controller
 
     public function getUserConversations(Request $request)
     {
+        Log::debug("User Controller ");
+
         /** @var User $user */
-        $user = $request->user();
+        $user = $request->user()->first();
 
-        $userConversations = $user->userConversations()
-            ->with('conversation')
-            ->get();
-
-        $conversations = [];
-        $i = 0;
-
-        foreach ($userConversations as $conversation) {
-            $conversations[$i] = $conversation->conversation;
-            $i++;
-        }
-
-        $response = Response::create($conversations);
-        Log::debug($response);
+        $response = Response::create([ "conversation" => $user->conversations()->get()]);
 
         return $response;
     }
