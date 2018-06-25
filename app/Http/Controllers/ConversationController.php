@@ -41,7 +41,7 @@ class ConversationController extends Controller
         $friendId = $request->toArray()[0];
 
         /** @var Conversation $conversation */
-        $conversation = Conversation::create([
+        $conversation = Conversation::firstOrCreate([
             'name' => "conversation",
         ]);
         $conversation->users()->attach($userId);

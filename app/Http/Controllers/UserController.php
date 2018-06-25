@@ -58,7 +58,8 @@ class UserController extends Controller
         /** @var User $user */
         $user = $request->user()->first();
 
-        $response = Response::create([ "conversation" => $user->conversations()->get()]);
+        $response = Response::create([ "conversation" => $user->conversations()->with(User::class)->get()]);
+        Log::debug($response);
 
         return $response;
     }
