@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:api']], function()
             'messages' => 'MessageController',
             'conversation' => 'ConversationController',
             'users' => 'UserController',
+            'friendships' => 'FriendshipController',
         ]
     );
 });

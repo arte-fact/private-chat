@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Friendship;
+use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FriendshipController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return Response::create($request->user()->friendships);
     }
 
     /**
@@ -35,7 +38,22 @@ class FriendshipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Log::debug("Friendship Controller");
+        Log::debug($request);
+
+        $friend = User::where('name', $request->get('user_number'))->first();
+
+        $friendship = Friendship::create([
+            'name' => $request->get('user_name'),
+            'friend_id' => $friend->id,
+            'user_id' => $request->user()->id,
+        ]);
+        $response = Response::create($friendship);
+
+        Log::debug($response);
+        return $response;
+
+
     }
 
     /**

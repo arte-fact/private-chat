@@ -38,7 +38,7 @@ class ConversationController extends Controller
     {
         Log::debug("Conversation Controller");
         $userId = $request->user()->id;
-        $friendId = $request->toArray()[0];
+        $friendId = $request->userId;
 
         /** @var Conversation $conversation */
         $conversation = Conversation::firstOrCreate([
