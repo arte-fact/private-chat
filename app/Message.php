@@ -14,7 +14,7 @@ class Message extends Model
 
     public function conversation()
     {
-        return $this->belongsTo(Conversation::class, 'id', 'conversation_id');
+        return $this->belongsTo(Conversation::class);
     }
 
     public function sender() {

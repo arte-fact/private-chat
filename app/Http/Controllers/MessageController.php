@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
 use App\Events\MessageCreatedEvent;
 use App\Message;
 use Illuminate\Http\Request;
@@ -51,7 +52,10 @@ class MessageController extends Controller
         $message = Message::create(
             array_merge(
                 $request->all(),
-                ['author_id' => $request->user()->id]
+                [
+                    'author_id' => $request->user()->id,
+                    'conversation_id' => $request->get('conversation_id'),
+                    ]
             )
         );
 

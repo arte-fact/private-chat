@@ -17,7 +17,11 @@ class FriendshipController extends Controller
      */
     public function index(Request $request)
     {
-        return Response::create($request->user()->friendships);
+        Log::debug("Friendship Controller");
+        $response = Response::create($request->user()->friendships);
+        Log::debug($response);
+
+        return $response;
     }
 
     /**
