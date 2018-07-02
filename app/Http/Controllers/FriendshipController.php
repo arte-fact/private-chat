@@ -18,20 +18,10 @@ class FriendshipController extends Controller
     public function index(Request $request)
     {
         Log::debug("Friendship Controller");
-        $response = Response::create($request->user()->friendships);
+        $response = Response::create(['friendship' => $request->user()->friendships]);
         Log::debug($response);
 
         return $response;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -52,56 +42,9 @@ class FriendshipController extends Controller
             'friend_id' => $friend->id,
             'user_id' => $request->user()->id,
         ]);
-        $response = Response::create($friendship);
+        $response = Response::create(['friendship' => json_decode([$friendship])]);
 
         Log::debug($response);
         return $response;
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Friendship  $friendship
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Friendship $friendship)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Friendship  $friendship
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Friendship $friendship)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Friendship  $friendship
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Friendship $friendship)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Friendship  $friendship
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Friendship $friendship)
-    {
-        //
     }
 }

@@ -10,10 +10,10 @@ class Conversation extends Model
         'name',
     ];
     public function conversationUsers() {
-        return $this->hasMany(ConversationUser::class, 'id','user_id');
+        return $this->hasMany(ConversationUser::class);
     }
     public function messages() {
-        return $this->hasMany(Message::class, 'conversation_id','id');
+        return $this->hasMany(Message::class);
     }
 
     public function users() {
